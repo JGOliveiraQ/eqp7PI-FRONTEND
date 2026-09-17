@@ -45,3 +45,34 @@ export const horariosDisponiveis = [
   '10:00', '10:30', '11:00', '13:00', '13:30', '14:00',
   '14:30', '15:00', '15:30', '16:00', '16:30',
 ]
+
+export const profissionais = [
+  {
+    id: '65f1a2b3c4d5e6f7a8b9c0d1',
+    nome: 'Dra. Ana Beatriz Silva',
+    crm: 'CRM-PE 14258',
+    especialidade: 'Clínica Geral',
+    clinicaId: '65f1a2b3c4d5e6f7a8b9c001',
+    clinicaNome: 'UBS Engenho do Meio',
+    endereco: 'Rua Doutor José Maria, 120 - Engenho do Meio',
+  },
+  {
+    id: '65f1a2b3c4d5e6f7a8b9c0d2',
+    nome: 'Dr. Carlos Eduardo Ramos',
+    crm: 'CRM-PE 19832',
+    especialidade: 'Cardiologia',
+    clinicaId: '65f1a2b3c4d5e6f7a8b9c003',
+    clinicaNome: 'Policlínica Lessa de Andrade',
+    endereco: 'Rua Cônego Barata, 668 - Tamarineira',
+  },
+  {
+    id: '65f1a2b3c4d5e6f7a8b9c0d3',
+    nome: 'Dra. Mariana Vasconcelos',
+    crm: 'CRM-PE 22104',
+    especialidade: 'Geriatria',
+    clinicaId: '65f1a2b3c4d5e6f7a8b9c002',
+    clinicaNome: 'UBS Alto José do Pinho',
+    endereco: 'Rua Vasco da Gama, 45 - Alto José do Pinho',
+  },
+]
+

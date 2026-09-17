@@ -10,6 +10,14 @@ const api = axios.create({
   },
 })
 
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
+
 api.interceptors.response.use(
   (resposta) => resposta,
   (erro) => {
@@ -21,5 +29,12 @@ api.interceptors.response.use(
     return Promise.reject(erro)
   }
 )
+
+export const agendarConsulta = async (dadosAgendamento) => {
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token')
+  const headers = token ? { Authorization: `Bearer ${token}` } : {}
+  const response = await api.post('/agendamentos', dadosAgendamento, { headers })
+  return response.data
+}
 
 export default api
