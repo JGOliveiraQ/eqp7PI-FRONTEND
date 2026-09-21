@@ -3,6 +3,7 @@ import { useAuth } from './contexts/AuthContext';
 import { useAcessibilidade } from './context/AcessibilidadeContext';
 import LoginPage from './pages/LoginPage';
 import CadastroPage from './pages/CadastroPage';
+import RecuperarSenhaPage from './pages/RecuperarSenhaPage';
 import Home from './pages/Home';
 import Agendamento from './pages/Agendamento';
 import Unidades from './pages/Unidades';
@@ -27,6 +28,7 @@ function App() {
       <Routes>
         <Route path="/login" element={token ? <Navigate to="/" replace /> : <LoginPage />} />
         <Route path="/cadastro" element={token ? <Navigate to="/" replace /> : <CadastroPage />} />
+        <Route path="/recuperar-senha" element={token ? <Navigate to="/" replace /> : <RecuperarSenhaPage />} />
         <Route path="/cadastro/sucesso" element={<CadastroSucessoPage />} />
         <Route path="/" element={token ? <Home /> : <Navigate to="/login" replace />} />
         <Route path="/agendamento" element={token ? <Agendamento /> : <Navigate to="/login" replace />} />
