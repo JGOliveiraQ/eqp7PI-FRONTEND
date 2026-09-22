@@ -68,7 +68,7 @@ function Agendamento() {
   const tamanhoSubtitulo = modoIdoso ? 'text-idoso-lg font-bold' : 'text-lg font-semibold'
   const tamanhoTexto = modoIdoso ? 'text-idoso-base' : 'text-base'
 
-  const dataFormatadaExibicao = useMemo(() => {
+  const dataFormatada = useMemo(() => {
     if (!dataSelecionada) return ''
     const [ano, mes, dia] = dataSelecionada.split('-')
     return `${dia}/${mes}/${ano}`
@@ -80,7 +80,7 @@ function Agendamento() {
     setErroGeral('')
   }
 
-  const handleConfirmarAgendamento = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (!dataSelecionada || !horarioSelecionado) return
@@ -154,7 +154,7 @@ function Agendamento() {
                 <div>
                   <dt className="text-gray-500 font-medium">Data e Horário</dt>
                   <dd className={`font-black text-recife-dark ${tamanhoSubtitulo}`}>
-                    {dataFormatadaExibicao} às {horarioSelecionado}
+                    {dataFormatada} às {horarioSelecionado}
                   </dd>
                 </div>
                 <div className="bg-recife-primary text-white text-xs sm:text-sm font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
@@ -365,14 +365,14 @@ function Agendamento() {
             <div className="flex justify-between items-start gap-4 pt-2 border-t border-gray-100">
               <span className="text-gray-500 font-medium">Data e Horário:</span>
               <span className={`font-black text-right ${horarioSelecionado ? 'text-recife-dark' : 'text-gray-400'} ${tamanhoSubtitulo}`}>
-                {dataFormatadaExibicao} {horarioSelecionado ? `às ${horarioSelecionado}` : '(Escolha o horário)'}
+                {dataFormatada} {horarioSelecionado ? `às ${horarioSelecionado}` : '(Escolha o horário)'}
               </span>
             </div>
           </div>
 
           <button
             type="button"
-            onClick={handleConfirmarAgendamento}
+            onClick={handleSubmit}
             disabled={!dataSelecionada || !horarioSelecionado || carregando}
             className={`w-full bg-recife-primary text-white font-bold rounded-2xl transition-all shadow-md flex items-center justify-center gap-3 ${
               dataSelecionada && horarioSelecionado && !carregando

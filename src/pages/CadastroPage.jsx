@@ -20,8 +20,8 @@ function CadastroPage() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setForm((estadoAnterior) => ({
-      ...estadoAnterior,
+    setForm((anterior) => ({
+      ...anterior,
       [name]: value,
     }));
   };

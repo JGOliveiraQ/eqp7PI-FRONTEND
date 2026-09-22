@@ -1,5 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, useMemo, useCallback } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 
 const AcessibilidadeContext = createContext(null)
@@ -7,14 +6,8 @@ const AcessibilidadeContext = createContext(null)
 export function AcessibilidadeProvider({ children }) {
   const [modoIdoso, setModoIdoso] = useState(false)
 
-  const alternarModoIdoso = useCallback(() => {
-    setModoIdoso((estadoAnterior) => !estadoAnterior)
-  }, [])
-
-  const valor = useMemo(
-    () => ({ modoIdoso, alternarModoIdoso }),
-    [modoIdoso, alternarModoIdoso]
-  )
+  const alternarModoIdoso = () => setModoIdoso((anterior) => !anterior)
+  const valor = { modoIdoso, alternarModoIdoso }
 
   return (
     <AcessibilidadeContext.Provider value={valor}>
