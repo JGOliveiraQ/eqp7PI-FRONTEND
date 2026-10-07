@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Calendar, MapPin, User, Accessibility } from 'lucide-react'
 import { useAcessibilidade } from '../context/AcessibilidadeContext'
+import SairButton from '../components/SairButton'
 
 const acoesRapidas = [
   {
@@ -36,18 +37,21 @@ function Home() {
   return (
     <div className="min-h-screen bg-recife-light">
       <header className="bg-recife-primary text-white px-4 py-6">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <h1 className={`font-bold ${tamanhoCabecalho}`}>Saúde Recife</h1>
-          <button
-            onClick={alternarModoIdoso}
-            className="flex items-center gap-2 bg-white/20 hover:bg-white/30 rounded-lg px-3 py-2 transition-colors"
-            aria-label="Alternar modo de acessibilidade"
-          >
-            <Accessibility size={modoIdoso ? 28 : 20} />
-            <span className={modoIdoso ? 'text-idoso-base' : 'text-sm'}>
-              {modoIdoso ? 'Modo Padrão' : 'Modo Idoso'}
-            </span>
-          </button>
+        <div className="max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-3">
+          <h1 className={`w-full font-bold sm:w-auto ${tamanhoCabecalho}`}>Saúde Recife</h1>
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              onClick={alternarModoIdoso}
+              className="flex min-h-12 items-center gap-2 rounded-lg bg-white/20 px-3 py-2 transition-colors hover:bg-white/30"
+              aria-label="Alternar modo de acessibilidade"
+            >
+              <Accessibility size={modoIdoso ? 28 : 20} />
+              <span className={modoIdoso ? 'text-idoso-base' : 'text-sm'}>
+                {modoIdoso ? 'Modo Padrão' : 'Modo Idoso'}
+              </span>
+            </button>
+            <SairButton />
+          </div>
         </div>
       </header>
 

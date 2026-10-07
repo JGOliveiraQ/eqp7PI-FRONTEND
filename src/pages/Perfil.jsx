@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowLeft, User, FileText, Bell } from 'lucide-react'
 import { useAcessibilidade } from '../context/AcessibilidadeContext'
+import SairButton from '../components/SairButton'
 
 const dadosUsuario = {
   nome: 'Maria da Silva',
@@ -27,7 +28,8 @@ function Perfil() {
           <Link to="/" className="hover:opacity-80 transition-opacity">
             <ArrowLeft size={modoIdoso ? 28 : 24} />
           </Link>
-          <h1 className={`font-bold ${tamanhoTitulo}`}>Meu Perfil</h1>
+          <h1 className={`flex-1 font-bold ${tamanhoTitulo}`}>Meu Perfil</h1>
+          <SairButton />
         </div>
       </header>
 

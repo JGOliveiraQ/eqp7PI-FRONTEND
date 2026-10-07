@@ -11,11 +11,11 @@ import {
   AlertTriangle,
   Loader2,
   Home,
-  ShieldCheck,
 } from 'lucide-react'
 import { useAcessibilidade } from '../context/AcessibilidadeContext'
 import { profissionais } from '../data/mockData'
 import { agendarConsulta } from '../services/api'
+import SairButton from '../components/SairButton'
 
 const horariosPadrao = ['08:00', '09:00', '10:00', '11:00', '14:00', '15:00', '16:00']
 
@@ -117,8 +117,8 @@ function Agendamento() {
       <div className="min-h-screen bg-recife-light/40">
         <header className="bg-recife-primary text-white px-4 py-5 shadow-sm">
           <div className="max-w-2xl mx-auto flex items-center justify-between">
-            <h1 className={tamanhoTitulo}>Comprovante de Agendamento</h1>
-            <ShieldCheck size={modoIdoso ? 36 : 28} />
+            <h1 className={`${tamanhoTitulo} flex-1`}>Comprovante de Agendamento</h1>
+            <SairButton />
           </div>
         </header>
 
@@ -198,7 +198,8 @@ function Agendamento() {
           >
             <ArrowLeft size={modoIdoso ? 32 : 24} />
           </Link>
-          <h1 className={tamanhoTitulo}>Escolha de Data e Horário</h1>
+          <h1 className={`${tamanhoTitulo} flex-1`}>Escolha de Data e Horário</h1>
+          <SairButton />
         </div>
       </header>
 

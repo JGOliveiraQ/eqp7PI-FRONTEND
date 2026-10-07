@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowLeft, MapPin, Phone, Clock, Search } from 'lucide-react'
 import { useAcessibilidade } from '../context/AcessibilidadeContext'
 import { unidadesDeSaude } from '../data/mockData'
+import SairButton from '../components/SairButton'
 
 function Unidades() {
   const { modoIdoso } = useAcessibilidade()
@@ -22,7 +23,8 @@ function Unidades() {
           <Link to="/" className="hover:opacity-80 transition-opacity">
             <ArrowLeft size={modoIdoso ? 28 : 24} />
           </Link>
-          <h1 className={`font-bold ${tamanhoTitulo}`}>Unidades de Saúde</h1>
+          <h1 className={`flex-1 font-bold ${tamanhoTitulo}`}>Unidades de Saúde</h1>
+          <SairButton />
         </div>
       </header>
 
