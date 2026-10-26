@@ -36,6 +36,135 @@ body {
   color: var(--recife-text);
 }
 
+.patient-page {
+  color: #14251f;
+}
+
+.filter-chip {
+  border: 1px solid #dcebe2;
+  border-radius: 999px;
+  background: #edf8f2;
+  color: #078653;
+  padding: 0.42rem 0.72rem;
+  font-size: 0.67rem;
+  font-weight: 700;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.filter-chip:hover,
+.filter-chip.active {
+  border-color: #0ba561;
+  background: #0ba561;
+  color: #fff;
+}
+
+.choice-button,
+.time-button {
+  min-height: 40px;
+  border: 1px solid #dfe8e3;
+  border-radius: 0.75rem;
+  background: #fff;
+  color: #3e4d47;
+  font-size: 0.72rem;
+  font-weight: 700;
+  transition: all 160ms ease;
+}
+
+.choice-button.selected,
+.time-button.selected {
+  border-color: #0ba561;
+  background: #0ba561;
+  color: #fff;
+  box-shadow: 0 6px 12px rgba(5, 132, 79, 0.2);
+}
+
+.date-button {
+  display: grid;
+  min-width: 54px;
+  gap: 0.08rem;
+  border: 1px solid #dfe8e3;
+  border-radius: 0.75rem;
+  background: #fff;
+  padding: 0.45rem 0.5rem;
+  color: #66756f;
+  font-size: 0.62rem;
+  text-align: center;
+}
+
+.date-button strong {
+  color: #192a23;
+  font-size: 0.9rem;
+}
+
+.date-button.selected {
+  border-color: #0ba561;
+  background: #e5f6ec;
+}
+
+.tab-button {
+  min-height: 38px;
+  border-radius: 0.6rem;
+  color: #718079;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.tab-button.active {
+  background: #e5f6ec;
+  color: #078653;
+}
+
+.form-label {
+  display: grid;
+  gap: 0.45rem;
+  color: #293831;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.form-input {
+  min-height: 46px;
+  width: 100%;
+  border: 1px solid #dfe8e3;
+  border-radius: 0.75rem;
+  background: #fff;
+  padding: 0.65rem 0.75rem;
+  color: #24342d;
+  font-size: 0.82rem;
+  font-weight: 500;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #0ba561;
+  box-shadow: 0 0 0 3px rgb(11 165 97 / 14%);
+}
+
+.pro-label {
+  display: grid;
+  gap: 0.45rem;
+  color: #374151;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.pro-input {
+  min-height: 44px;
+  width: 100%;
+  border: 1px solid #dfe8e3;
+  border-radius: 0.75rem;
+  background: #fff;
+  padding: 0.6rem 0.7rem;
+  color: #24342d;
+  font-size: 0.78rem;
+  outline: none;
+}
+
+.pro-input:focus {
+  border-color: #0f8b5f;
+  box-shadow: 0 0 0 3px rgb(15 139 95 / 14%);
+}
+
 #root {
   min-height: 100vh;
 }
@@ -111,3 +240,4 @@ button {
     @apply inline-flex items-center gap-2 rounded-full border border-[#dfeae6] bg-[#f4faf7] px-3 py-1.5 text-xs font-semibold text-[#1d4338];
   }
 }
+
