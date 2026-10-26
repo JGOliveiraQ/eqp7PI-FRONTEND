@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, HeartPulse, UserRound, Stethoscope } from 'lucide-react';
+import { ArrowRight, UserRound, Stethoscope } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const tabs = [
   { id: 'paciente', label: 'Paciente', icone: UserRound },
-  { id: 'medico', label: 'Médico', icone: Stethoscope },
+  { id: 'medico', label: 'Profissional', icone: Stethoscope },
+  { id: 'admin', label: 'Admin', icone: null },
 ];
 
 function LoginPage() {
@@ -24,9 +25,9 @@ function LoginPage() {
     setCarregando(true);
 
     try {
-      await login(email.trim(), senha);
-      navigate('/');
-    } catch (error) {
+          await login(email.trim(), senha, perfil);
+          navigate(perfil === 'admin' ? '/admin' : perfil === 'medico' ? '/profissional' : '/');
+        } catch (error) {
       setErro(error.response?.data?.message || 'Não foi possível entrar. Verifique suas credenciais.');
     } finally {
       setCarregando(false);
@@ -48,14 +49,12 @@ function LoginPage() {
                     onError={() => setLogoFalhou(true)}
                   />
                 ) : (
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#eaf7f0] text-[#0d7f57] shadow-sm sm:h-20 sm:w-20">
-                    <HeartPulse className="h-8 w-8 sm:h-10 sm:w-10" />
-                  </div>
+                  <span className="text-lg font-extrabold text-[#0d7f57]">Saúde Recife</span>
                 )}
               </div>
 
               <div className="mb-5 rounded-full bg-[#edf7f1] p-1">
-              <div className="grid grid-cols-2 gap-1">
+              <div className="grid grid-cols-3 gap-1">
                 {tabs.map(({ id, label, icone: Icone }) => {
                   const ativo = perfil === id;
 
@@ -68,7 +67,7 @@ function LoginPage() {
                         ativo ? 'bg-[#0f8b5f] text-white shadow-sm' : 'text-[#5d6f68] hover:bg-[#e5f4ee] hover:text-[#0f8b5f]'
                       }`}
                     >
-                      <Icone className="h-4 w-4" />
+                      {Icone && <Icone className="h-4 w-4" />}
                       {label}
                     </button>
                   );
@@ -78,17 +77,19 @@ function LoginPage() {
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label htmlFor="email" className="mb-2 block text-sm font-medium text-[#1a2f2a]">E-mail</label>
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="seuemail@exemplo.com"
-                  className="w-full rounded-xl border border-[#d7e2dd] bg-[#f7faf8] px-4 py-3 text-base text-[#17332d] outline-none transition placeholder:text-[#7a8a85] focus:border-[#0f8b5f] focus:ring-2 focus:ring-[#0f8b5f]/20"
-                  required
-                />
-              </div>
+                              <label htmlFor="email" className="mb-2 block text-sm font-medium text-[#1a2f2a]">
+                                {perfil === 'medico' ? 'E-mail profissional' : perfil === 'admin' ? 'E-mail administrativo' : 'CPF ou E-mail'}
+                              </label>
+                              <input
+                                id="email"
+                                type={perfil === 'paciente' ? 'text' : 'email'}
+                                value={email}
+                                onChange={(event) => setEmail(event.target.value)}
+                                placeholder={perfil === 'medico' ? 'medico@sauderecife.com' : perfil === 'admin' ? 'admin@sauderecife.com' : '000.000.000-00 ou seu e-mail'}
+                                className="w-full rounded-xl border border-[#d7e2dd] bg-[#f7faf8] px-4 py-3 text-base text-[#17332d] outline-none transition placeholder:text-[#7a8a85] focus:border-[#0f8b5f] focus:ring-2 focus:ring-[#0f8b5f]/20"
+                                required
+                              />
+                            </div>
 
               <div>
                 <label htmlFor="senha" className="mb-2 block text-sm font-medium text-[#1a2f2a]">Senha</label>
