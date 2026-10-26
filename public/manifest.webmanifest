@@ -1,0 +1,23 @@
+{
+  "name": "Saúde Recife",
+  "short_name": "Saúde Recife",
+  "description": "Aplicativo de saúde para agendamento e cuidado do paciente",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f7f5",
+  "theme_color": "#0ba561",
+  "icons": [
+    {
+      "src": "/logocompacta.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo-saude-recife.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
