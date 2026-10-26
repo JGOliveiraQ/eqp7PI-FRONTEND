@@ -1,48 +1,46 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate, Link } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
-import { useAcessibilidade } from './context/AcessibilidadeContext';
 import LoginPage from './pages/LoginPage';
 import CadastroPage from './pages/CadastroPage';
 import RecuperarSenhaPage from './pages/RecuperarSenhaPage';
-import Home from './pages/Home';
-import Agendamento from './pages/Agendamento';
 import Unidades from './pages/Unidades';
-import Perfil from './pages/Perfil';
+import AdminDashboard from './pages/AdminDashboard';
+import ProfessionalDashboard from './pages/ProfessionalDashboard';
 import {
-  BuscarAtendimento,
-  Especialidades,
-  Profissionais,
-  PerfilMedico,
-  AgendarConsulta,
-  ConsultaSucesso,
-  AssistenteIA,
-  ResultadoAnalise,
-  MeusAgendamentos,
-  DetalhesConsulta,
-  ReagendarConsulta,
-  ConsultaCancelada,
-  EditarPerfil,
-  Notificacoes,
-} from './pages/FluxoPaciente';
+  AppointmentCancelled,
+  AppointmentDetails,
+  AppointmentSuccess,
+  DoctorProfile,
+  EditPatientProfile,
+  HealthAssistant,
+  HealthPlan,
+  HelpSupport,
+  MyAppointments,
+  PatientHome,
+  PatientNotifications,
+  PatientProfile,
+  PrivacyAndSecurity,
+  ScheduleAppointment,
+  SearchCare,
+  RescheduleAppointment,
+  TermsOfUse,
+} from './pages/PatientPortal';
 
 function App() {
-  const { modoIdoso } = useAcessibilidade();
-  const { token, carregando } = useAuth();
+  const { token, usuario, carregando } = useAuth();
   const [mostrarSplash, setMostrarSplash] = useState(true);
   const [fadeSplash, setFadeSplash] = useState(false);
 
   useEffect(() => {
-    const timerIniciarFade = setTimeout(() => setFadeSplash(true), 1500);
-    const timerOcultar = setTimeout(() => setMostrarSplash(false), 2200);
+    const timerIniciarFade = setTimeout(() => setFadeSplash(true), 1200);
+    const timerOcultar = setTimeout(() => setMostrarSplash(false), 1800);
 
     return () => {
       clearTimeout(timerIniciarFade);
       clearTimeout(timerOcultar);
     };
   }, []);
-
-  const estiloBase = modoIdoso ? 'text-idoso-base' : 'text-base';
 
   if (mostrarSplash || carregando) {
     return (
@@ -69,31 +67,41 @@ function App() {
   }
 
   return (
-    <div className={`min-h-screen bg-[#f3f7f5] ${estiloBase}`}>
+    <div className="min-h-screen bg-[#f3f7f5]">
       <Routes>
         <Route path="/login" element={token ? <Navigate to="/" replace /> : <LoginPage />} />
         <Route path="/cadastro" element={token ? <Navigate to="/" replace /> : <CadastroPage />} />
         <Route path="/recuperar-senha" element={token ? <Navigate to="/" replace /> : <RecuperarSenhaPage />} />
         <Route path="/cadastro/sucesso" element={<CadastroSucessoPage />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/agendamento" element={token ? <Agendamento /> : <Navigate to="/login" replace />} />
+        <Route path="/" element={token ? usuario?.tipo === 'ADMIN' ? <Navigate to="/admin" replace /> : usuario?.tipo === 'MEDICO' ? <Navigate to="/profissional" replace /> : <PatientHome /> : <Navigate to="/login" replace />} />
         <Route path="/unidades" element={token ? <Unidades /> : <Navigate to="/login" replace />} />
-        <Route path="/perfil" element={token ? <Perfil /> : <Navigate to="/login" replace />} />
-        <Route path="/buscar-atendimento" element={token ? <BuscarAtendimento /> : <Navigate to="/login" replace />} />
-        <Route path="/especialidades" element={token ? <Especialidades /> : <Navigate to="/login" replace />} />
-        <Route path="/profissionais" element={token ? <Profissionais /> : <Navigate to="/login" replace />} />
-        <Route path="/perfil-medico" element={token ? <PerfilMedico /> : <Navigate to="/login" replace />} />
-        <Route path="/agendar-consulta" element={token ? <AgendarConsulta /> : <Navigate to="/login" replace />} />
-        <Route path="/consulta-sucesso" element={token ? <ConsultaSucesso /> : <Navigate to="/login" replace />} />
-        <Route path="/assistente-ia" element={token ? <AssistenteIA /> : <Navigate to="/login" replace />} />
-        <Route path="/resultado-analise" element={token ? <ResultadoAnalise /> : <Navigate to="/login" replace />} />
-        <Route path="/meus-agendamentos" element={token ? <MeusAgendamentos /> : <Navigate to="/login" replace />} />
-        <Route path="/detalhes-consulta" element={token ? <DetalhesConsulta /> : <Navigate to="/login" replace />} />
-        <Route path="/reagendar-consulta" element={token ? <ReagendarConsulta /> : <Navigate to="/login" replace />} />
-        <Route path="/consulta-cancelada" element={token ? <ConsultaCancelada /> : <Navigate to="/login" replace />} />
-        <Route path="/editar-perfil" element={token ? <EditarPerfil /> : <Navigate to="/login" replace />} />
-        <Route path="/notificacoes" element={token ? <Notificacoes /> : <Navigate to="/login" replace />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/perfil" element={token ? <PatientProfile /> : <Navigate to="/login" replace />} />
+        <Route path="/admin" element={usuario?.tipo === 'ADMIN' ? <AdminDashboard /> : <Navigate to="/" replace />} />
+        <Route path="/profissional" element={usuario?.tipo === 'MEDICO' ? <ProfessionalDashboard /> : <Navigate to="/" replace />} />
+        <Route path="/profissional/agenda" element={usuario?.tipo === 'MEDICO' ? <ProfessionalDashboard /> : <Navigate to="/" replace />} />
+        <Route path="/profissional/disponibilidade" element={usuario?.tipo === 'MEDICO' ? <ProfessionalDashboard /> : <Navigate to="/" replace />} />
+        <Route path="/profissional/consulta" element={usuario?.tipo === 'MEDICO' ? <ProfessionalDashboard /> : <Navigate to="/" replace />} />
+        <Route path="/profissional/prontuario" element={usuario?.tipo === 'MEDICO' ? <ProfessionalDashboard /> : <Navigate to="/" replace />} />
+        <Route path="/profissional/paciente" element={usuario?.tipo === 'MEDICO' ? <ProfessionalDashboard /> : <Navigate to="/" replace />} />
+        <Route path="/profissional/notificacoes" element={usuario?.tipo === 'MEDICO' ? <ProfessionalDashboard /> : <Navigate to="/" replace />} />
+        <Route path="/profissional/perfil" element={usuario?.tipo === 'MEDICO' ? <ProfessionalDashboard /> : <Navigate to="/" replace />} />
+        <Route path="/buscar-atendimento" element={token ? <SearchCare /> : <Navigate to="/login" replace />} />
+        <Route path="/perfil-medico" element={token ? <DoctorProfile /> : <Navigate to="/login" replace />} />
+        <Route path="/agendar-consulta" element={token ? <ScheduleAppointment /> : <Navigate to="/login" replace />} />
+        <Route path="/assistente-ia" element={token && usuario?.tipo === 'PACIENTE' ? <HealthAssistant /> : <Navigate to="/" replace />} />
+        <Route path="/consulta-sucesso" element={token ? <AppointmentSuccess /> : <Navigate to="/login" replace />} />
+        <Route path="/meus-agendamentos" element={token ? <MyAppointments /> : <Navigate to="/login" replace />} />
+        <Route path="/detalhes-consulta" element={token ? <AppointmentDetails /> : <Navigate to="/login" replace />} />
+        <Route path="/consulta-cancelada" element={token ? <AppointmentCancelled /> : <Navigate to="/login" replace />} />
+        <Route path="/reagendar-consulta" element={token ? <RescheduleAppointment /> : <Navigate to="/login" replace />} />
+        <Route path="/editar-perfil" element={token ? <EditPatientProfile /> : <Navigate to="/login" replace />} />
+        <Route path="/notificacoes" element={token ? <PatientNotifications /> : <Navigate to="/login" replace />} />
+        <Route path="/plano-saude" element={token ? <HealthPlan /> : <Navigate to="/login" replace />} />
+        <Route path="/privacidade" element={token ? <PrivacyAndSecurity /> : <Navigate to="/login" replace />} />
+        <Route path="/ajuda" element={token ? <HelpSupport /> : <Navigate to="/login" replace />} />
+        <Route path="/termos" element={token ? <TermsOfUse /> : <Navigate to="/login" replace />} />
+
+                <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </div>
   );
@@ -123,4 +131,5 @@ function CadastroSucessoPage() {
   );
 }
 
-export default App
+export default App;
+
