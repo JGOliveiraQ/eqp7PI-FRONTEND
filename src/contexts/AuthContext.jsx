@@ -1,15 +1,15 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import api from '../services/api';
+import api, { loginAdministrador, loginMedico, loginPaciente } from '../services/api';
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [usuario, setUsuario] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token') || sessionStorage.getItem('token') || '');
+  const [token, setToken] = useState(localStorage.getItem('token') || '');
   const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
-    const tokenSalvo = localStorage.getItem('token') || sessionStorage.getItem('token');
+    const tokenSalvo = localStorage.getItem('token');
     const usuarioSalvo = localStorage.getItem('usuario');
 
     if (tokenSalvo) {
@@ -18,6 +18,7 @@ export function AuthProvider({ children }) {
         try {
           setUsuario(JSON.parse(usuarioSalvo));
         } catch {
+          localStorage.removeItem('usuario');
           setUsuario(null);
         }
       }
@@ -33,9 +34,12 @@ export function AuthProvider({ children }) {
     setUsuario(novoUsuario);
   };
 
-  const login = async (email, senha) => {
-    const resposta = await api.post('/auth/login', { email, senha });
-    const dados = resposta.data;
+  const login = async (email, senha, perfil = 'paciente') => {
+    const dados = perfil === 'medico'
+      ? await loginMedico(email, senha)
+      : perfil === 'admin'
+        ? await loginAdministrador(email, senha)
+        : await loginPaciente(email, senha);
 
     persistirSessao(dados.token, dados.usuario);
     return dados;
@@ -55,13 +59,16 @@ export function AuthProvider({ children }) {
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('usuario');
     setToken('');
     setUsuario(null);
   };
 
-  const valor = { usuario, token, carregando, login, cadastrar, logout };
+  const atualizarUsuarioLocal = (usuarioAtualizado) => {
+    localStorage.setItem('usuario', JSON.stringify(usuarioAtualizado));
+    setUsuario(usuarioAtualizado);
+  };
+
+  const valor = { usuario, token, carregando, login, cadastrar, logout, atualizarUsuarioLocal };
 
   return <AuthContext.Provider value={valor}>{children}</AuthContext.Provider>;
 }
