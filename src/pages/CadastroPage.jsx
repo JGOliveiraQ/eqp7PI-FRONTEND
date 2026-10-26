@@ -4,7 +4,6 @@ import {
   ArrowLeft,
   ArrowRight,
   Check,
-  HeartPulse,
   MessageCircle,
   ShieldCheck,
 } from 'lucide-react';
@@ -528,16 +527,14 @@ function CadastroPage() {
               </div>
 
               <div ref={chatContainerRef} className="max-h-[48vh] min-h-56 space-y-4 overflow-y-auto rounded-[24px] bg-[#f7faf8] p-4 sm:p-5" aria-live="polite" aria-relevant="additions">
-                <div className="flex items-start gap-3">
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#dff3e8] text-[#0f8b5f]"><HeartPulse className="h-5 w-5" aria-hidden="true" /></div>
+                <div>
                   <p className="max-w-[85%] rounded-2xl rounded-tl-sm border border-[#dfeae6] bg-white px-4 py-3 text-base leading-relaxed text-[#15362d]">
                     Olá, {form.nome.trim().split(/\s+/)[0] || 'que bom ter você aqui'}. Vou registrar algumas informações que você já conhece sobre sua saúde. Isso não é um diagnóstico.
                   </p>
                 </div>
 
                 {respostas.length === 0 && (
-                  <div className="flex items-start gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#dff3e8] text-[#0f8b5f]"><HeartPulse className="h-5 w-5" aria-hidden="true" /></div>
+                  <div>
                     {digitando ? (
                       <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-[#dfeae6] bg-white px-4 py-3">
                         <div className="typing-dots" aria-label="Assistente digitando">
@@ -558,8 +555,7 @@ function CadastroPage() {
                       <p className="max-w-[85%] rounded-2xl rounded-tr-sm bg-[#0f8b5f] px-4 py-3 text-base font-medium leading-relaxed text-white">{item.resposta}</p>
                     </div>
                     {indice + 1 < perguntas.length && (
-                      <div className="flex items-start gap-3">
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#dff3e8] text-[#0f8b5f]"><HeartPulse className="h-5 w-5" aria-hidden="true" /></div>
+                      <div>
                         {digitando && indice + 1 === respostas.length ? (
                           <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-[#dfeae6] bg-white px-4 py-3">
                             <div className="typing-dots" aria-label="Assistente digitando">
